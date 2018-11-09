@@ -1,7 +1,6 @@
 const express = require('express')
 const Web3 = require('web3')
 const web3 = new Web3()
-
 const bitcoin = require('./lib/0xbitcoin-interface')
 
 var app = express()
@@ -48,13 +47,17 @@ app.post('/example2/execute', asyncMiddleware( async (request, response, next) =
 	if (bitcoinMerge === true){
 		console.log('0xBitcoin solution found!!')
 		// TODO submit valid nonce to a pool or directly here
+		console.log('Submitting to 0xbitcoin or Pool for reward')
 
+		// TODO use the service payload to perform service specific logic here
+		let payload = request.body.payload
+		console.log('payload is being processed here, secured by 0xbitcoins PoW')
 	}
 
 }))
 
 // an arbitrary REST service method that is secured by 0xBitcoin proof of work
-// curl -d '{ "nonce":"0xdeadbeef", "origin": "0xaddress"}' -H "Content-Type: application/json" http://127.0.0.1:8080/example1/execute
+// curl -d '{ "nonce":"0xdeadbeef", "origin": "0xaddress", "payload": "{ }"}' -H "Content-Type: application/json" http://127.0.0.1:8080/example1/execute
 app.post('/example1/execute', asyncMiddleware( async (request, response, next) => {
 
 	// merge with 0xbitcoin
@@ -62,6 +65,12 @@ app.post('/example1/execute', asyncMiddleware( async (request, response, next) =
 	if (bitcoinMerge === true){
 		console.log('0xBitcoin solution found!!')
 		// TODO submit valid nonce to a pool or directly here
+		console.log('Submitting to 0xbitcoin or Pool for reward')
+
+		// TODO use the service payload to perform service specific logic here
+		let payload = request.body.payload
+		console.log('payload is being processed here, secured by 0xbitcoins PoW')
+
 	} else {
 		throw 'Could not validate Proof of Work nonce aginst 0xBitcoin'
 	}
